@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SizeChooser">
+
+    <NumberPicker android:layout_width="65dp" android:layout_height="200dp"
+                  app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginTop="156dp"
+                  app:layout_constraintTop_toTopOf="parent"
+                  android:layout_marginRight="88dp" android:id="@+id/column_picker" android:layout_marginEnd="88dp"
+                  app:layout_constraintHorizontal_bias="1.0"/>
+    <NumberPicker android:layout_width="65dp" android:layout_height="200dp"
+                  app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginRight="88dp" android:layout_marginTop="156dp"
+                  app:layout_constraintTop_toTopOf="parent"
+                  android:layout_marginLeft="88dp" android:id="@+id/row_picker"
+                  app:layout_constraintHorizontal_bias="0.011"/>
+    <TextView
+            android:text="Dimensions of the puzzle:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="44dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="176dp" android:layout_marginStart="176dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="177dp"
+            android:layout_marginRight="177dp"/>
+    <TextView
+            android:text="X"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2" android:layout_marginLeft="32dp" android:layout_marginStart="32dp"
+            app:layout_constraintStart_toEndOf="@+id/row_picker"
+            app:layout_constraintEnd_toStartOf="@+id/column_picker" android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp" app:layout_constraintTop_toTopOf="@+id/row_picker"
+            app:layout_constraintBottom_toBottomOf="@+id/column_picker"/>
+    <Button
+            android:text="Start Game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/start_game"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="149dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="32dp" android:layout_marginStart="32dp"/>
+    <TextView
+            android:text="Row"
+            android:layout_width="65dp"
+            android:layout_height="19dp"
+            android:id="@+id/textView3" android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/row_picker" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="88dp" android:layout_marginStart="88dp" android:gravity="center"/>
+    <TextView
+            android:text="Column"
+            android:layout_width="65dp"
+            android:layout_height="19dp"
+            android:id="@+id/textView4" android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/column_picker" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="88dp" android:layout_marginEnd="88dp" android:gravity="center"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
