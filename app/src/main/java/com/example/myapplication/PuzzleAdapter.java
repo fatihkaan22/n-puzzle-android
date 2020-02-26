@@ -37,17 +37,22 @@ public class PuzzleAdapter extends ArrayAdapter<Piece> {
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       // set board size according to number of columns in puzzle
-      ((Button) convertView).setAutoSizeTextTypeUniformWithConfiguration(14,
-              80,
-              2,
-              TypedValue.COMPLEX_UNIT_DIP);
+      if (convertView != null)
+        ((Button) convertView).setAutoSizeTextTypeUniformWithConfiguration(14,
+                80,
+                2,
+                TypedValue.COMPLEX_UNIT_DIP);
 
     }
-    convertView.setBackground(convertView.getResources().getDrawable(R.drawable.back));
-    ((Button) convertView).setGravity(Gravity.CENTER);
+    if (convertView != null)
+      convertView.setBackground(convertView.getResources().getDrawable(R.drawable.back));
+
+    if (convertView != null)
+      ((Button) convertView).setGravity(Gravity.CENTER);
 
     //for readability of 9x puzzle
-    ((Button) convertView).setMinHeight(0);
+    if (convertView != null)
+      ((Button) convertView).setMinHeight(0);
     ((Button) convertView).setMinWidth(0);
     ((Button) convertView).setIncludeFontPadding(false);
 

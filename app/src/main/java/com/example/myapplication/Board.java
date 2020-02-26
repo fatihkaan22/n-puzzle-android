@@ -38,7 +38,7 @@ public class Board {
 
   public void scramble() {
     Random random = new Random();
-    do { // if board comes to initial postion after scramble, scramble again
+    do { // if board comes to initial portion after scramble, scramble again
       for (int i = 0; i < SIZE * SIZE; i++) {
         switch (random.nextInt(4)) {
           case 0:

@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 public class SizeChooser extends AppCompatActivity {
   private NumberPicker rowPicker;
   private NumberPicker columnPicker;
-  private Button startGame;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +23,7 @@ public class SizeChooser extends AppCompatActivity {
     columnPicker.setMinValue(3);
     columnPicker.setMaxValue(9);
 
-    startGame = findViewById(R.id.start_game);
+    Button startGame = findViewById(R.id.start_game);
     startGame.setOnClickListener((v) -> openBoardActivity());
 
   }

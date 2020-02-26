@@ -24,6 +24,7 @@ public class Game extends Activity {
 
   @SuppressLint("ClickableViewAccessibility")
   public void initBoard(GridView gridView, final TextView moves) {
+
     for (int i = 0; i < board.getSIZE(); i++) {
       Piece p = new Piece(context);
       p.setText(String.valueOf(i + 1));
@@ -39,7 +40,7 @@ public class Game extends Activity {
               Toast.makeText(context, "Solved!", Toast.LENGTH_SHORT).show();
 
               new AlertDialog.Builder(context)
-                      .setTitle("Congratulations!")
+                      .setTitle("Congratulations! 🎉")
                       .setMessage("Number of moves: " + numberOfMoves)
                       .setPositiveButton("OK", (dialog, which) -> {
                         Toast.makeText(context, "New Game", Toast.LENGTH_LONG).show();

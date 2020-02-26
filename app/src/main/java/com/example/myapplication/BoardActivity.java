@@ -1,15 +1,11 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.GridView;
@@ -37,26 +33,29 @@ public class BoardActivity extends AppCompatActivity {
 
     // to get screen width and height
     LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    View contentview = inflater.inflate(R.layout.activity_board, null, false);
-    contentview.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+    @SuppressLint("InflateParams")
+    View contentview = inflater != null ? inflater.inflate(R.layout.activity_board, null, false) : null;
 
-    int x = contentview.getMeasuredWidth();
-    int y = contentview.getMeasuredHeight();
+    if (contentview != null)
+      contentview.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
 
-    //see also: FIXME: add link samsung notes to get formula
+    int x = contentview != null ? contentview.getMeasuredWidth() : 0;
+    int y = contentview != null ? contentview.getMeasuredHeight() : 0;
+
+    //prove of formula
+    //https://drive.google.com/file/d/1eYe3b3YVTdqksoJdx2jMrkPvU4nAlGBW/view?usp=sharing
     int paddingToFitScreen = (x - (columns * y / rows)) / 2;
     if (paddingToFitScreen < 0) paddingToFitScreen = 0;
     gridView.setPadding(paddingToFitScreen, gridView.getPaddingTop(), paddingToFitScreen, gridView.getPaddingBottom());
-    if (columns > rows && rows < 7) {   //activate orientation for usability of landscape mode
+    if (columns > rows && rows < 7) {     //activate orientation for usability of landscape mode
       setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
       if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-        Toast.makeText(this, "You can rotate screen for better experience.", Toast.LENGTH_LONG).show(); //FIXME: increase length
+        Toast.makeText(this, "You can rotate screen for better experience.", Toast.LENGTH_LONG).show();
     }
 
     numberOfMoves = findViewById(R.id.moves);
 
     Game game = new Game(this, rows, columns);
-    //FIXME: try setters instead of passing as arguments
     game.initBoard(gridView, numberOfMoves);
 
   }
