@@ -4,115 +4,48 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 @SuppressLint("Registered")
 public class Game extends Activity {
-  ArrayList<Piece> numbers;
-  final int ROWS;
-  final int COLUMNS;
-  final int SIZE;
+  Board board;
   Context context;
-  private int emptyIndex;
   private int numberOfMoves;
 
   public Game(Context context, int rows, int columns) {
-    ROWS = rows;
-    COLUMNS = columns;
-    SIZE = rows * columns;
-    this.numbers = new ArrayList<>();
     this.context = context;
-    this.emptyIndex = SIZE - 1;
     this.numberOfMoves = 0;
-  }
-
-  private boolean isMovable(int index) {
-    if (index - 1 == emptyIndex && index % COLUMNS != 0) return true;
-    if (index + 1 == emptyIndex && emptyIndex % COLUMNS != 0) return true;
-    if (index - COLUMNS == emptyIndex || index + COLUMNS == emptyIndex) return true;
-    return false;
-  }
-
-  private boolean isSolved() {
-    for (int i = 1; i <= SIZE; i++) {
-      if (!numbers.get(i - 1).getText().equals(Integer.toString(i))) return false;
-    }
-    return true;
-  }
-
-  private void move(Piece p) {
-    String tmp = (String) p.getText();
-    p.setText(numbers.get(emptyIndex).getText());
-    numbers.get(emptyIndex).setText(tmp);
-    numbers.get(emptyIndex).setVisibility(View.VISIBLE);
-    emptyIndex = (int) p.getTag() - 1;
-    numbers.get(emptyIndex).setVisibility(View.INVISIBLE);
-
-    //TODO: swap pieces instead of values
-  }
-
-  private void scramble() {
-    Random random = new Random();
-    do { // if board comes to initial postion after scramble, scramble again
-      for (int i = 0; i < SIZE * SIZE; i++) {
-        switch (random.nextInt(4)) {
-          case 0:
-            if (emptyIndex + 1 < SIZE && (emptyIndex + 1) % COLUMNS != 0)
-              move(numbers.get(emptyIndex + 1));
-            break;
-          case 1:
-            if (emptyIndex - 1 >= 0 && emptyIndex % COLUMNS != 0)
-              move(numbers.get(emptyIndex - 1));
-            break;
-          case 2:
-            if (emptyIndex - COLUMNS >= 0)
-              move(numbers.get(emptyIndex - COLUMNS));
-            break;
-          case 3:
-            if (emptyIndex + COLUMNS < SIZE)
-              move(numbers.get(emptyIndex + COLUMNS));
-            break;
-        }
-      }
-    } while (isSolved());
+    this.board = new Board(rows, columns);
   }
 
   @SuppressLint("ClickableViewAccessibility")
   public void initBoard(GridView gridView, final TextView moves) {
-    for (int i = 0; i < SIZE; i++) {
+    for (int i = 0; i < board.getSIZE(); i++) {
       Piece p = new Piece(context);
       p.setText(String.valueOf(i + 1));
       p.setTag(i + 1);
 
       p.setOnTouchListener((v, event) -> {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-          if (isMovable(((int) v.getTag()) - 1)) {
-//            Toast.makeText(context, String.valueOf(v.getTag()), Toast.LENGTH_SHORT).show();
-            move((Piece) v);
+          if (board.isMovable(((int) v.getTag()) - 1)) {
+            board.move((Piece) v);
             Game.this.numberOfMoves++;
             moves.setText(String.valueOf(numberOfMoves));
-            if (isSolved()) {
+            if (board.isSolved()) {
               Toast.makeText(context, "Solved!", Toast.LENGTH_SHORT).show();
 
               new AlertDialog.Builder(context)
-                      .setTitle("Game Over")
+                      .setTitle("Congratulations!")
                       .setMessage("Number of moves: " + numberOfMoves)
-                      .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                          Toast.makeText(context, "New Game", Toast.LENGTH_LONG).show();
-                          numberOfMoves = 0;
-                          moves.setText(String.valueOf(numberOfMoves));
-                          scramble();
-                        }
+                      .setPositiveButton("OK", (dialog, which) -> {
+                        Toast.makeText(context, "New Game", Toast.LENGTH_LONG).show();
+                        numberOfMoves = 0;
+                        moves.setText(String.valueOf(numberOfMoves));
+                        board.scramble();
                       }).show();
             }
           } else {
@@ -121,17 +54,15 @@ public class Game extends Activity {
         }
         return false;
       });
-      numbers.add(p);
+      board.getNumbers().add(p);
     }
 
-//    numbers.get(emptyIndex).setEmpty();
-    numbers.get(emptyIndex).setVisibility(View.INVISIBLE);
+    board.getNumbers().get(board.getEmptyIndex()).setVisibility(View.INVISIBLE);
 
-    PuzzleAdapter puzzleAdapter = new PuzzleAdapter(context, R.layout.puzzle_layout, numbers, COLUMNS);
+    PuzzleAdapter puzzleAdapter = new PuzzleAdapter(context, R.layout.puzzle_layout, board.getNumbers(), board.getCOLUMNS());
     gridView.setAdapter(puzzleAdapter);
 
-    //TODO: make a different class for numbers arraylist
-    scramble();
+    board.scramble();
 
   }
 }

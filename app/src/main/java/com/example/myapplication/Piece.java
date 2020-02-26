@@ -7,13 +7,6 @@ import androidx.annotation.Nullable;
 
 public class Piece extends Button {
 
-//  private final int EMPTY_PIECE = -1;
-
-//  public void setEmpty() {
-//    this.setText(String.valueOf(EMPTY_PIECE));
-//    this.setTag(EMPTY_PIECE);
-//  }
-
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     super.onMeasure(widthMeasureSpec, widthMeasureSpec); //to force the pieces to be square

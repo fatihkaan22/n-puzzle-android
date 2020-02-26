@@ -12,21 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-
-import static com.example.myapplication.R.id.puzzle_number;
-import static com.example.myapplication.R.id.uniform;
 
 public class PuzzleAdapter extends ArrayAdapter<Piece> {
 
   private final int mResource;
   private int column;
-//  private ArrayList<Piece> numbers;
 
   public PuzzleAdapter(@NonNull Context context, int resource, ArrayList<Piece> textViewResourceId, int column) {
     super(context, resource, textViewResourceId);
-//    this.numbers = textViewResourceId;
     this.mResource = resource;
     this.column = column;
   }
