@@ -1,10 +1,7 @@
 package com.example.myapplication;
 
-import android.content.ClipData;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
